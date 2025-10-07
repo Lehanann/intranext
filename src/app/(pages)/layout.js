@@ -23,7 +23,6 @@ export default function DefaultLayout({ children }) {
           {children}
           <Footer/>
         </div>
-        
       </main>
   );
 }

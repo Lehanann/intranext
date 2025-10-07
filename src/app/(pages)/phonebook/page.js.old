@@ -1,0 +1,95 @@
+'use client'
+
+import React, { useEffect, useState } from 'react'
+
+import { usersList } from './list'
+import { Plus } from 'lucide-react'
+
+export default function PhonebookPage() {
+
+  const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+  const usersListSortByLname = usersList.sort(
+      function(a,b){
+
+        if (a.lname > b.lname)
+          return 1;
+        if (a.lname< b.lname)
+          return -1
+        if (a.lname === b.lname)
+        {
+          if(a.fname > b.fname)
+            return 1
+          if(a.fname < b.fname)
+            return -1
+        }
+
+        return 0
+      }
+    )
+
+  
+  const listAphabetPhonebook = () => {
+
+    let alphabetUsers =[]
+
+    usersListSortByLname.map((user)=>{
+      alphabetUsers.push(user.lname.at(0))
+
+    })
+
+    return [...new Set(alphabetUsers)]
+  }
+
+
+  //console.log(listAphabetPhonebook(), listAphabetPhonebook().length + usersListSortByLname.length,Math.floor((usersListSortByLname.length+listAphabetPhonebook().length)/20))
+
+  const nbrColumns = Math.floor((usersListSortByLname.length+listAphabetPhonebook().length)/20)+1
+
+  const [gridColumns, setGridColumns] = useState("grid-cols-"+ nbrColumns)   
+
+
+  return ( 
+    <section className="py-2 w-full border-2 border-red-500 flex-wrap flex flex-col overflow-auto">
+
+
+      {listAphabetPhonebook().map((item, index)=>{
+
+        return(
+          <div className=" w-[15rem] gap-1 border" key={index}>
+            <div className="flex flex-col flex-wrap">
+              <div className="bg-abyss  uppercase h-10  text-zinc-50 flex items-center justify-end p-2">
+                {item}
+              </div>
+            <div className="flex flex-col flex-wrap">
+              {
+                usersListSortByLname.map((user,index)=>
+                {
+                  if (user.lname.at(0) === item)
+                  {
+                    return(
+                      <div className="flex flex-col" key={index}>
+                        <div className="flex justify-between items-center">
+                          <span className="capitalize font-semibold text-lg">{user.lname}&nbsp;{user.fname}</span>
+                          <Plus className="h-4 w-4"/>
+                        </div>
+                         {  /*              
+                        <div className="flex flex-col">
+                          <span className="capitalize text-[0.9rem] italic">career: {user.profession}</span>
+                          <span className="capitalize text-[0.9rem] font-light">tel.: {user.tel}</span>
+                          <span className="first-letter:uppercase text-[0.7rem] font-semibold">email: <a href="mailto:">{user.email}</a></span>
+                        </div> */  }                     
+                      </div>
+                  )
+                  }                  
+                })
+              }
+            </div>
+            </div>
+           
+          </div>          
+        )
+      })}
+    </section>
+  )
+}

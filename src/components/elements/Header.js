@@ -7,13 +7,13 @@ export default function Header() {
 
   const message = {
       texte: " Message d'alerte pour des opérations impactants le site",
-      status: "info",
+      status: "warning",
       icon:<PiWarningFill/>
   }
 
 
   return (
-    <header className="h-[60px] w-full bg-abyss rounded text-zinc-100 flex items-center justify-center">
+    <header className="min-h-[60px] static w-full bg-abyss rounded text-zinc-100 flex items-center justify-center">
       <div className="w-3/9 inline-flex flex-nowrap overflow-hidden">
         <span className={`
             whitespace-nowrap flex items-center 

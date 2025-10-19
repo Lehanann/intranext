@@ -18,7 +18,7 @@ export default function DefaultLayout({ children }) {
         className={`flex h-full p-0.5 gap-0.5`}
       >
         <Sidebar/>
-        <div className="h-full flex flex-col w-full">
+        <div className="flex flex-col w-full">
           <Header/>
           {children}
           <Footer/>
